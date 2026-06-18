@@ -1,14 +1,16 @@
+## (Descriere)
 **Sistem Interactiv de Procesare pentru Chitara**
    Proiectul consta in realizarea unui procesor de efecte digital interactiv in mediul Max MSP, conceput pentru procesarea unui semnal de chitara. Scopul principal a fost crearea unui sistem flexibil in care instrumentistul poate modifica parametrii sunetului (Overdrive, Delay, Tremolo) in timp real, folosind ecranul unui telefon mobil ca controller wireless prin protocolul OSC (Open Sound Control).
 
 ## (Instalare)
-...
+   Proiectul a fost realizat in mediul Max MSP.
 
 ## (Utilizare)
-...
+   Se va conecta chitara electrica la o interfata audio pentru a realiza legatura cu patch-ul din Max, dupa care se va conecta telefonul mobil prin protocolul OSC pentru a trimite date in timp real.  
 
 ## (Istoric)
 **Realizarea proiectului**
+
 Receptia si Separarea Datelor (udpreceive si route)
 - udpreceive 9000: Acest obiect asculta portul UDP 9000 si capteaza pachetele de date OSC transmise de pe telefon.
 - route /touch1 /touch2 /touch3: Separa fluxurile de date in functie de adresele OSC transmise (coordonatele pentru degetul 1, degetul 2, degetul 3), trimitandu-le spre ramurile corespunzatoare de efecte.
@@ -20,7 +22,7 @@ Despachetarea Coordonatelor (unpack 0. 0.)
 Logica de Detectare a Deconectarii (> -1. si sel 1)
 Aceasta sectiune rezolva o problema importanta de control: detectarea momentului in care degetul paraseste ecranul telefonului.
 - Atat timp cat degetul se afla pe ecran, valorile transmise sunt pozitive. Cand degetul este ridicat, aplicatia trimite valoarea -1. pentru a semnala absenta atingerii (dupa cum se vede in mesajul de test /touch1 -1. -1.).
--  > -1. (Mai mare decat -1): Acest operator logic verifica fluxul de date. Daca degetul este pe ecran, conditia este adevarata si obiectul scoate valoarea 1. Daca degetul este ridicat (si valoarea devine -1), conditia este falsa si obiectul scoate 0.
+- > -1. (Mai mare decat -1): Acest operator logic verifica fluxul de date. Daca degetul este pe ecran, conditia este adevarata si obiectul scoate valoarea 1. Daca degetul este ridicat (si valoarea devine -1), conditia este falsa si obiectul scoate 0.
 - sel 1 (Select): Prinde valoarea 1 (adica starea in care degetul este activ pe ecran) si trimite un impuls de tip bang. Acest impuls comanda obiectul selector~ 4, schimband canalele audio si activand efectul corespunzator degetului care atinge ecranul in acel moment.
 
 Mentinerea Starii si Filtrarea Parametrilor (if si clip)
